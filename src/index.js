@@ -1,6 +1,6 @@
 import dotenv from "dotenv"
 import connectDB from "./db/index.js";
-
+import {app} from './app.js' //MONGO db connection failed !!!  ReferenceError: app is not defined
 dotenv.config ({
     path: './env'
 })
