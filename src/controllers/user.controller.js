@@ -177,6 +177,7 @@ const logoutUser = asyncHandler (async(req, res)=>{
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
     const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
+    console.log("Incoming Refresh Token is: ",incomingRefreshToken);
 
 
     if (!incomingRefreshToken) {
@@ -187,7 +188,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     try {
         const decodeToken = Jwt.verify(
             incomingRefreshToken,
-            process.env.ACCESS_TOKEN_SECRET
+            process.env.REFRESH_TOKEN_SECRET // mistakenly put Access token
         )
     
         const user = await User.findById(decodeToken?._id)
@@ -261,6 +262,7 @@ const getCurrentuser = asyncHandler (async(req, res) => {
 
 const updateAccountDetails = asyncHandler (async (req, res) => {
     const { fullName, email } = req.body
+    console.log(fullName, email);
 
     if (!fullName || !email) {
         throw new ApiError (400, "All fields are required")
